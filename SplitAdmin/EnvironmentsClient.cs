@@ -9,7 +9,7 @@ namespace SplitAdmin
 {
     public class EnvironmentsClient : EndpointClient
     {
-        public EnvironmentsClient(HttpClient client) : base(client) { }
+        public EnvironmentsClient(HttpClient client, bool useCache) : base(client, useCache) { }
 
         public async Task<IList<Environment>> Get(Workspace workspace)
         {

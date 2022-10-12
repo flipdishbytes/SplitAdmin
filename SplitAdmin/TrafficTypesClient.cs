@@ -8,7 +8,7 @@ namespace SplitAdmin
 {
     public class TrafficTypesClient : EndpointClient
     {
-        public TrafficTypesClient(HttpClient client) : base(client) { }
+        public TrafficTypesClient(HttpClient client, bool useCache) : base(client, useCache) { }
 
         public async Task<IList<TrafficType>> Get(Workspace workspace)
         {

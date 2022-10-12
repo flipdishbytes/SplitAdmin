@@ -8,7 +8,7 @@ namespace SplitAdmin
 {
     public class WorkspacesClient : EndpointClient
     {
-        public WorkspacesClient(HttpClient client) : base(client) { }
+        public WorkspacesClient(HttpClient client, bool useCache) : base(client, useCache) { }
 
         public async Task<IList<Workspace>> GetAll()
         {

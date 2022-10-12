@@ -7,10 +7,12 @@ namespace SplitAdmin
     public class EndpointClient
     {
         internal readonly HttpClient _client;
+        internal readonly bool _useCache;
 
-        public EndpointClient(HttpClient client)
+        public EndpointClient(HttpClient client, bool useCache)
         {
             _client = client;
+            _useCache = useCache;
         }
 
         internal static async void ValidateResponse(HttpResponseMessage response)

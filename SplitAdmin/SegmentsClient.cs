@@ -10,7 +10,7 @@ namespace SplitAdmin
 {
     public class SegmentsClient : EndpointClient
     {
-        public SegmentsClient(HttpClient client) : base(client) { }
+        public SegmentsClient(HttpClient client, bool useCache) : base(client, useCache) { }
 
         public async Task<IList<Segment>> GetAll(Workspace workspace, string? environmentName = null)
         {

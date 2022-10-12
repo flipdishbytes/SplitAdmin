@@ -9,14 +9,14 @@ namespace SplitAdmin
     {
         private readonly Cache<string, User> _cache;
 
-        public UsersClient(HttpClient client) : base(client)
+        public UsersClient(HttpClient client, bool useCache) : base(client, useCache)
         {
             _cache = Cache<string, User>.LoadFromCache<string, User>("users");
         }
 
         public async Task<User?> Get(string userId)
         {
-            if (_cache.ContainsKey(userId))
+            if (_useCache && _cache.ContainsKey(userId))
             {
                 return _cache[userId];
             }
@@ -28,7 +28,7 @@ namespace SplitAdmin
 
             var result = JsonConvert.DeserializeObject<User>(rawContent);
 
-            if (result != null)
+            if (_useCache && result != null)
             {
                 _cache[userId] = result;
                 _cache.Save();

@@ -9,14 +9,14 @@ namespace SplitAdmin
     {
         private readonly Cache<string, Group> _cache;
 
-        public GroupsClient(HttpClient client) : base(client)
+        public GroupsClient(HttpClient client, bool useCache) : base(client, useCache)
         {
             _cache = Cache<string, Group>.LoadFromCache<string, Group>("groups");
         }
 
         public async Task<Group?> Get(string groupId)
         {
-            if (_cache.ContainsKey(groupId))
+            if (_useCache && _cache.ContainsKey(groupId))
             {
                 return _cache[groupId];
             }
@@ -28,7 +28,7 @@ namespace SplitAdmin
 
             var result = JsonConvert.DeserializeObject<Group>(rawContent);
 
-            if (result != null)
+            if (_useCache && result != null)
             {
                 _cache[groupId] = result;
                 _cache.Save();

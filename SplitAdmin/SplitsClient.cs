@@ -11,7 +11,7 @@ namespace SplitAdmin
     {
         private readonly Cache<string, Split> _cache;
 
-        public SplitsClient(HttpClient client) : base(client)
+        public SplitsClient(HttpClient client, bool useCache) : base(client, useCache)
         {
             _cache = Cache<string, Split>.LoadFromCache<string, Split>("splits");
         }
@@ -78,7 +78,7 @@ namespace SplitAdmin
         {
             var key = $"{workspaceId}/{splitName}";
 
-            if (_cache.ContainsKey(key))
+            if (_useCache && _cache.ContainsKey(key))
             {
                 return _cache[key];
             }
@@ -90,7 +90,7 @@ namespace SplitAdmin
 
             var value = JsonConvert.DeserializeObject<Split>(rawContent, new UnixMillisecondTimestampConverter());
 
-            if (value != null)
+            if (_useCache && value != null)
             {
                 _cache[key] = value;
                 _cache.Save();
