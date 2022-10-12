@@ -5,10 +5,37 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ErrorReport>queue</ErrorReport>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <Authors>Flipdish</Authors>
+    <Version>1.0.0</Version>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Title>SplitAdmin</Title>
+    <Description>A C# wrapper around the split.io admin APIs</Description>
+    <Copyright>Flipdish</Copyright>
+    <PackageProjectUrl>https://github.com/flipdishbytes/SplitAdmin</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/flipdishbytes/SplitAdmin</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
