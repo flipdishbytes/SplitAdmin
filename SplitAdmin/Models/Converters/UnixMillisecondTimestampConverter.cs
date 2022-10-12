@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
+using System;
 
 namespace SplitAdmin.Models.Converters
 {
     public class UnixMillisecondTimestampConverter : DateTimeConverterBase
     {
-        private static readonly DateTime _epoch = new(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly DateTime _epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {

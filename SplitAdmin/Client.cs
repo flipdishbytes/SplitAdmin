@@ -1,4 +1,7 @@
-﻿namespace SplitAdmin
+﻿using System;
+using System.Net.Http;
+
+namespace SplitAdmin
 {
     public class SplitClient
     {

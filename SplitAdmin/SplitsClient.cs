@@ -1,6 +1,9 @@
 ﻿using Newtonsoft.Json;
 using SplitAdmin.Models;
 using SplitAdmin.Models.Converters;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SplitAdmin
 {
@@ -21,7 +24,7 @@ namespace SplitAdmin
 
         public async Task<IList<Split>> GetAll(string workspaceId, string? environmentName = null)
         {
-            List<Split> splits = new();
+            var splits = new List<Split>();
             int offset = 0;
 
 

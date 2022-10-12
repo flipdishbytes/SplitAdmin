@@ -1,5 +1,8 @@
 ﻿using Newtonsoft.Json;
 using SplitAdmin.Models;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SplitAdmin
 {
@@ -9,7 +12,7 @@ namespace SplitAdmin
 
         public async Task<IList<Workspace>> GetAll()
         {
-            List<Workspace> workspaces = new();
+            var workspaces = new List<Workspace>();
             int offset = 0;
 
             while (true)

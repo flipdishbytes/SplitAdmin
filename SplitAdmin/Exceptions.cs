@@ -1,4 +1,6 @@
-﻿namespace SplitAdmin
+﻿using System;
+
+namespace SplitAdmin
 {
     public class SplitAdminException : Exception {
     
