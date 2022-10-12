@@ -1,5 +1,4 @@
 using SplitAdmin;
-using System.ComponentModel;
 using System.Reflection;
 
 namespace SplitAdminTests
@@ -75,6 +74,22 @@ namespace SplitAdminTests
             {
                 var splits = await client.Splits.GetAll(workspace);
                 Assert.AreNotEqual(splits.Count, 0);
+            }
+        }
+
+        [TestMethod]
+        public async Task TestGetSplitsInEnvironments()
+        {
+            var client = new SplitClient(GetKey());
+            var workspaces = await client.Workspaces.GetAll();
+            foreach (var workspace in workspaces)
+            {
+                var environments = await client.Environments.Get(workspace);
+                foreach (var environment in environments)
+                {
+                    var splits = await client.Splits.GetAll(workspace, environment.Name);
+                    Assert.AreNotEqual(splits.Count, 0);
+                }
             }
         }
 
