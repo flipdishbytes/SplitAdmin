@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SplitAdmin
 {
     public class WorkspacesClient : EndpointClient
-    {        
+    {
         public WorkspacesClient(HttpClient client) : base(client) { }
 
         public async Task<IList<Workspace>> GetAll()

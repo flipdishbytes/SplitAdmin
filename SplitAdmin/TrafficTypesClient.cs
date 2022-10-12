@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SplitAdmin
 {
     public class TrafficTypesClient : EndpointClient
-    {        
+    {
         public TrafficTypesClient(HttpClient client) : base(client) { }
 
         public async Task<IList<TrafficType>> Get(Workspace workspace)

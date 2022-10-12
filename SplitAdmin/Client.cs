@@ -5,7 +5,7 @@ namespace SplitAdmin
 {
     public class SplitClient
     {
-        private readonly HttpClient _client; 
+        private readonly HttpClient _client;
         private readonly WorkspacesClient _workspacesClient;
         private readonly EnvironmentsClient _environmentsClient;
         private readonly SplitsClient _splitsClient;
@@ -30,7 +30,7 @@ namespace SplitAdmin
             {
                 BaseAddress = new Uri("https://api.split.io/internal/api/v2/")
             };
-            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", key); 
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", key);
 
             _workspacesClient = new WorkspacesClient(_client);
             _environmentsClient = new EnvironmentsClient(_client);

@@ -6,8 +6,8 @@ namespace SplitAdmin
 {
     public class EndpointClient
     {
-        internal readonly HttpClient _client; 
-        
+        internal readonly HttpClient _client;
+
         public EndpointClient(HttpClient client)
         {
             _client = client;

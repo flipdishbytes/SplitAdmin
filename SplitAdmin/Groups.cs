@@ -8,7 +8,7 @@ namespace SplitAdmin
     public class GroupsClient : EndpointClient
     {
         private readonly Cache<string, Group> _cache;
-        
+
         public GroupsClient(HttpClient client) : base(client)
         {
             _cache = Cache<string, Group>.LoadFromCache<string, Group>("groups");

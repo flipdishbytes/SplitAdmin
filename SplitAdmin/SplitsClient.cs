@@ -11,7 +11,7 @@ namespace SplitAdmin
     {
         private readonly Cache<string, Split> _cache;
 
-        public SplitsClient(HttpClient client) : base(client) 
+        public SplitsClient(HttpClient client) : base(client)
         {
             _cache = Cache<string, Split>.LoadFromCache<string, Split>("splits");
         }

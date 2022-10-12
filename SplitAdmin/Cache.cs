@@ -11,7 +11,8 @@ namespace SplitAdmin
 
         private readonly string _name;
 
-        private Cache(string name) : base() {
+        private Cache(string name) : base()
+        {
             _name = name;
         }
 
@@ -43,7 +44,7 @@ namespace SplitAdmin
             }
 
 
-            foreach(var (key, value) in data)
+            foreach (var (key, value) in data)
             {
                 cache.Add(key, value);
             }
