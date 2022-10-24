@@ -29,7 +29,13 @@ namespace SplitAdmin
                     throw new SplitAdminResponseException("Failed to decode workspace response");
                 }
 
+                if (response.Objects.Count == 0)
+                {
+                    throw new SplitAdminResponseException($"Unexpected zero length collection from workspaces: {rawContent}");
+                }
+
                 workspaces.AddRange(response.Objects);
+
                 if (workspaces.Count < response.TotalCount)
                 {
                     offset += response.Objects.Count;
