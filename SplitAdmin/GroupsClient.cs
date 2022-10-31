@@ -7,16 +7,19 @@ namespace SplitAdmin
 {
     public class GroupsClient : EndpointClient
     {
-        private readonly Cache<string, Group> _cache;
+        private readonly Cache<string, Group>? _cache;
 
-        public GroupsClient(HttpClient client, bool useCache) : base(client, useCache)
+        public GroupsClient(HttpClient client, bool useCache) : base(client)
         {
-            _cache = Cache<string, Group>.LoadFromCache<string, Group>("groups");
+            if (useCache)
+            {
+                _cache = Cache<string, Group>.LoadFromCache<string, Group>("groups");
+            }
         }
 
         public async Task<Group?> Get(string groupId)
         {
-            if (_useCache && _cache.ContainsKey(groupId))
+            if (_cache?.ContainsKey(groupId) ?? false)
             {
                 return _cache[groupId];
             }
@@ -28,7 +31,7 @@ namespace SplitAdmin
 
             var result = JsonConvert.DeserializeObject<Group>(rawContent);
 
-            if (_useCache && result != null)
+            if (_cache != null && result != null)
             {
                 _cache[groupId] = result;
                 _cache.Save();

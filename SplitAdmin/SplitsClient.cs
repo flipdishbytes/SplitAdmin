@@ -9,11 +9,14 @@ namespace SplitAdmin
 {
     public class SplitsClient : EndpointClient
     {
-        private readonly Cache<string, Split> _cache;
+        private readonly Cache<string, Split>? _cache;
 
-        public SplitsClient(HttpClient client, bool useCache) : base(client, useCache)
+        public SplitsClient(HttpClient client, bool useCache) : base(client)
         {
-            _cache = Cache<string, Split>.LoadFromCache<string, Split>("splits");
+            if (useCache)
+            {
+                _cache = Cache<string, Split>.LoadFromCache<string, Split>("splits");
+            }
         }
 
         public async Task<IList<Split>> GetAll(Workspace workspace, string? environmentName = null)
@@ -78,7 +81,7 @@ namespace SplitAdmin
         {
             var key = $"{workspaceId}/{splitName}";
 
-            if (_useCache && _cache.ContainsKey(key))
+            if (_cache?.ContainsKey(key) ?? false)
             {
                 return _cache[key];
             }
@@ -90,7 +93,7 @@ namespace SplitAdmin
 
             var value = JsonConvert.DeserializeObject<Split>(rawContent, new UnixMillisecondTimestampConverter());
 
-            if (_useCache && value != null)
+            if (_cache != null && value != null)
             {
                 _cache[key] = value;
                 _cache.Save();

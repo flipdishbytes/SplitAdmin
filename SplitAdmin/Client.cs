@@ -32,14 +32,14 @@ namespace SplitAdmin
             };
             _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", key);
 
-            _workspacesClient = new WorkspacesClient(_client, useCache);
-            _environmentsClient = new EnvironmentsClient(_client, useCache);
+            _workspacesClient = new WorkspacesClient(_client);
+            _environmentsClient = new EnvironmentsClient(_client);
             _splitsClient = new SplitsClient(_client, useCache);
-            _trafficTypesClient = new TrafficTypesClient(_client, useCache);
+            _trafficTypesClient = new TrafficTypesClient(_client);
             _usersClient = new UsersClient(_client, useCache);
             _groupsClient = new GroupsClient(_client, useCache);
-            _attributesClient = new AttributesClient(_client, useCache);
-            _segmentsClient = new SegmentsClient(_client, useCache);
+            _attributesClient = new AttributesClient(_client);
+            _segmentsClient = new SegmentsClient(_client);
         }
 
     }

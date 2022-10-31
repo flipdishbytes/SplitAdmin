@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 
@@ -7,12 +8,10 @@ namespace SplitAdmin
     public class EndpointClient
     {
         internal readonly HttpClient _client;
-        internal readonly bool _useCache;
 
-        public EndpointClient(HttpClient client, bool useCache)
+        public EndpointClient(HttpClient client)
         {
             _client = client;
-            _useCache = useCache;
         }
 
         internal static async void ValidateResponse(HttpResponseMessage response)
@@ -29,9 +28,9 @@ namespace SplitAdmin
             {
                 data = JsonConvert.DeserializeObject<Dictionary<string, object>>(body);
             }
-            catch
+            catch (Exception ex)
             {
-                throw new HttpRequestException($"Request failed with code: {response.StatusCode} -> {body}");
+                throw new HttpRequestException($"Request failed with code: {response.StatusCode} -> {body}", ex);
             }
 
             if (data == null)
