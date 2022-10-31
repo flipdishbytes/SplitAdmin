@@ -19,7 +19,7 @@ namespace SplitAdmin
         public async Task<IList<Environment>> Get(string workspaceId)
         {
             var rawResponse = await _client.GetAsync($"environments/ws/{workspaceId}");
-            ValidateResponse(rawResponse);
+            await ValidateResponse(rawResponse);
 
             var rawContent = await rawResponse.Content.ReadAsStringAsync();
 

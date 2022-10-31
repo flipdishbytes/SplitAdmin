@@ -18,7 +18,7 @@ namespace SplitAdmin
         public async Task<IList<TrafficType>> Get(string workspaceId)
         {
             var rawResponse = await _client.GetAsync($"trafficTypes/ws/{workspaceId}");
-            ValidateResponse(rawResponse);
+            await ValidateResponse(rawResponse);
 
             var rawContent = await rawResponse.Content.ReadAsStringAsync();
 

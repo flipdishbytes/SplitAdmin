@@ -18,7 +18,7 @@ namespace SplitAdmin
             while (true)
             {
                 var rawResponse = await _client.GetAsync($"workspaces?offset={offset}");
-                ValidateResponse(rawResponse);
+                await ValidateResponse(rawResponse);
 
                 var rawContent = await rawResponse.Content.ReadAsStringAsync();
 

@@ -44,7 +44,7 @@ namespace SplitAdmin
                 url += $"?offset={offset}&limit=50";
 
                 var rawResponse = await _client.GetAsync(url);
-                ValidateResponse(rawResponse);
+                await ValidateResponse(rawResponse);
 
                 var rawContent = await rawResponse.Content.ReadAsStringAsync();
 
@@ -87,7 +87,7 @@ namespace SplitAdmin
             }
 
             var rawResponse = await _client.GetAsync($"splits/ws/{workspaceId}/{splitName}");
-            ValidateResponse(rawResponse);
+            await ValidateResponse(rawResponse);
 
             var rawContent = await rawResponse.Content.ReadAsStringAsync();
 

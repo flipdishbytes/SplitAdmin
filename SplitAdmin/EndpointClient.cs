@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SplitAdmin
 {
@@ -14,7 +15,7 @@ namespace SplitAdmin
             _client = client;
         }
 
-        internal static async void ValidateResponse(HttpResponseMessage response)
+        internal static async Task ValidateResponse(HttpResponseMessage response)
         {
             if ((int)response.StatusCode < 400)
             {

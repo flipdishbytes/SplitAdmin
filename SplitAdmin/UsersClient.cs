@@ -25,7 +25,7 @@ namespace SplitAdmin
             }
 
             var rawResponse = await _client.GetAsync($"users/{userId}");
-            ValidateResponse(rawResponse);
+            await ValidateResponse(rawResponse);
 
             var rawContent = await rawResponse.Content.ReadAsStringAsync();
 

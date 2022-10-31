@@ -36,7 +36,7 @@ namespace SplitAdmin
                 url += $"?offset={offset}&limit=50";
 
                 var rawResponse = await _client.GetAsync(url);
-                ValidateResponse(rawResponse);
+                await ValidateResponse(rawResponse);
 
                 var rawContent = await rawResponse.Content.ReadAsStringAsync();
 
@@ -82,7 +82,7 @@ namespace SplitAdmin
         public async Task<List<string>> GetKeys(string environmentId, string segmentName)
         {
             var rawResponse = await _client.GetAsync($"segments/{environmentId}/{segmentName}/keys");
-            ValidateResponse(rawResponse);
+            await ValidateResponse(rawResponse);
 
             var rawContent = await rawResponse.Content.ReadAsStringAsync();
 
