@@ -12,8 +12,8 @@
     <EnableNETAnalyzers>True</EnableNETAnalyzers>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <Authors>Flipdish</Authors>
-    <Version>1.0.5</Version>
-    <PackageVersion>1.0.5</PackageVersion>
+    <Version>1.0.6</Version>
+    <PackageVersion>1.0.6</PackageVersion>
     <Title>SplitAdmin</Title>
     <Description>A C# wrapper around the split.io admin APIs</Description>
     <Copyright>Flipdish</Copyright>
