@@ -50,7 +50,7 @@ namespace SplitAdminTests
         {
             var client = new SplitClient(GetKey());
             var workspaces = await client.Workspaces.GetAll();
-            Assert.AreNotEqual(workspaces.Count, 0);
+            Assert.AreNotEqual(0, workspaces.Count);
         }
 
         [TestMethod]
@@ -61,7 +61,7 @@ namespace SplitAdminTests
             foreach (var workspace in workspaces)
             {
                 var environments = await client.Environments.Get(workspace);
-                Assert.AreNotEqual(environments.Count, 0);
+                Assert.AreNotEqual(0, environments.Count);
             }
         }
 
@@ -73,7 +73,7 @@ namespace SplitAdminTests
             foreach (var workspace in workspaces)
             {
                 var splits = await client.Splits.GetAll(workspace);
-                Assert.AreNotEqual(splits.Count, 0);
+                Assert.AreNotEqual(0, splits.Count);
             }
         }
 
@@ -88,7 +88,7 @@ namespace SplitAdminTests
                 foreach (var environment in environments)
                 {
                     var splits = await client.Splits.GetAll(workspace, environment.Name);
-                    Assert.AreNotEqual(splits.Count, 0);
+                    Assert.AreNotEqual(0, splits.Count);
                 }
             }
         }
@@ -101,7 +101,7 @@ namespace SplitAdminTests
             foreach (var workspace in workspaces)
             {
                 var types = await client.TrafficTypes.Get(workspace);
-                Assert.AreNotEqual(types.Count, 0);
+                Assert.AreNotEqual(0, types.Count);
             }
         }
 
@@ -137,8 +137,23 @@ namespace SplitAdminTests
             foreach (var workspace in workspaces)
             {
                 var segments = await client.Segments.GetAll(workspace);
-                Assert.AreNotEqual(segments.Count, 0);
+                Assert.AreNotEqual(0, segments.Count);
             }
+        }
+
+        [TestMethod]
+        public async Task TestCreateDelete()
+        {
+            var client = new SplitClient(GetKey());
+            var workspace = (await client.Workspaces.GetAll()).First();
+
+            var trafficType = (await client.TrafficTypes.Get(workspace)).First();
+
+            var split = await client.Splits.Create(workspace, "SplitAdminTestSplitForCreateDelete", trafficType);
+
+            Assert.IsNotNull(split);
+
+            await client.Splits.Delete(workspace, split);
         }
     }
 }

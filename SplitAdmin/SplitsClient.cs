@@ -3,6 +3,7 @@ using SplitAdmin.Models;
 using SplitAdmin.Models.Converters;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SplitAdmin
@@ -100,6 +101,69 @@ namespace SplitAdmin
             }
 
             return value;
+        }
+
+        public async Task<Split?> Create(Workspace workspace, string splitName, TrafficType trafficType)
+        {
+            return await Create(workspace.Id, splitName, trafficType.Id);
+        }
+
+        public async Task<Split?> Create(string workspaceId, string splitName, TrafficType trafficType)
+        {
+            return await Create(workspaceId, splitName, trafficType.Id);
+        }
+
+        public async Task<Split?> Create(Workspace workspace, string splitName, string trafficTypeIdOrName)
+        {
+            return await Create(workspace.Id, splitName, trafficTypeIdOrName);
+        }
+
+        public async Task<Split?> Create(string workspaceId, string splitName, string trafficTypeIdOrName)
+        {
+            var data = new Dictionary<string, object>
+            {
+                {"name", splitName}
+            };
+
+            var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+
+            var rawResponse = await _client.PostAsync($"splits/ws/{workspaceId}/trafficTypes/{trafficTypeIdOrName}", content);
+            await ValidateResponse(rawResponse);
+
+            var rawContent = await rawResponse.Content.ReadAsStringAsync();
+
+            var value = JsonConvert.DeserializeObject<Split>(rawContent, new UnixMillisecondTimestampConverter());
+
+            if (_cache != null && value != null)
+            {
+                _cache[$"{workspaceId}/{splitName}"] = value;
+                _cache.Save();
+            }
+
+            return value;
+        }
+
+        public async Task Delete(Workspace workspace, Split split)
+        {
+            await Delete(workspace.Id, split.Name);
+        }
+
+        public async Task Delete(Workspace workspace, string splitName)
+        {
+            await Delete(workspace.Id, splitName);
+        }
+
+        public async Task Delete(string workspaceId, Split split)
+        {
+            await Delete(workspaceId, split.Name);
+        }
+
+        public async Task Delete(string workspaceId, string splitName)
+        {
+            var rawResponse = await _client.DeleteAsync($"splits/ws/{workspaceId}/{splitName}");
+            await ValidateResponse(rawResponse);
+
+            _cache?.Remove($"{workspaceId}/{splitName}");
         }
 
     }
